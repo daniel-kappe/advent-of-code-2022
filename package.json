@@ -5,8 +5,9 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node src/index.ts",
+    "day8": "ts-node src/day8",
     "prestart": "npm run build",
-    "start": "node src/index.ts",
+    "start": "node dist/index.js",
     "test": "jest",
     "eslint": "eslint \"src/**/*.ts\"",
     "format": "prettier --write \"**/*.{ts,json}\" && npm run eslint -- --fix"

@@ -1,7 +1,5 @@
-import { readFileSync } from 'fs';
 import _ from 'lodash';
-
-const readInput = () => readFileSync('./inputs/day1.dat', { encoding: 'utf-8' });
+import { readInput } from '../utils';
 
 export const separateByElf = (data: string) => data.split(/\n\n/);
 
@@ -20,12 +18,12 @@ export const findTopThreeCalorieElvesSummed = (allElvesCaloriesSummed: number[])
   allElvesCaloriesSummed.sort((a, b) => b - a).slice(0, 3);
 
 export default function solveDay1() {
-  const topCalorieCarryingElf = findTopCalorieCarringElf(
-    sumElfCalories(convertCaloriesAllElves(separateByElf(readInput())))
-  );
-  const caloriesTopThreeElves = _.sum(
-    findTopThreeCalorieElvesSummed(sumElfCalories(convertCaloriesAllElves(separateByElf(readInput()))))
-  );
+  const inputFile = './inputs/day1.dat';
+  const fileContent = readInput(inputFile);
+  const inputByElf = separateByElf(fileContent);
+  const caloriesByElf = convertCaloriesAllElves(inputByElf);
+  const topCalorieCarryingElf = findTopCalorieCarringElf(sumElfCalories(caloriesByElf));
+  const caloriesTopThreeElves = _.sum(findTopThreeCalorieElvesSummed(sumElfCalories(caloriesByElf)));
 
   console.log(`The most calories carried by one elf are: ${topCalorieCarryingElf}`);
   console.log(`The top 3 elves carry a total calorie count of: ${caloriesTopThreeElves}`);
