@@ -13,9 +13,11 @@
     "format": "prettier --write \"**/*.{ts,json}\" && npm run eslint -- --fix"
   },
   "dependencies": {
+    "@stdlib/stdlib": "^0.0.96",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@stdlib/types": "^0.0.14",
     "@swc/jest": "^0.2.23",
     "@types/jest": "^29.2.3",
     "@types/lodash": "^4.14.191",
