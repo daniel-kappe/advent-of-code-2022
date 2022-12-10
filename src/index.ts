@@ -7,6 +7,7 @@ import solveDay6 from './day6';
 import solveDay7 from './day7';
 import solveDay8 from './day8';
 import solveDay9 from './day9';
+import solveDay10 from './day10';
 
 console.log(`#### Day  1 ####`);
 solveDay1();
@@ -34,3 +35,6 @@ solveDay8();
 
 console.log(`\n#### Day  9 ####`);
 solveDay9();
+
+console.log(`\n#### Day 10 ####`);
+solveDay10();
