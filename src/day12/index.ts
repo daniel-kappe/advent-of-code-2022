@@ -126,5 +126,3 @@ export default function solveDay12() {
   }
   console.log(`The best hiking path has length: ${pathLengths.sort((a, b) => a - b)[0]}`);
 }
-
-solveDay12();
