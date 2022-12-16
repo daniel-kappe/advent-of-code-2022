@@ -61,48 +61,57 @@ export function getPressureArray(valveMap: ValveMap, namesList: string[]) {
 
 type Path = { positions: number[]; releasedPressure: number; yourTime: number; pressures: number[] };
 
-export function maxPressureReleased(distanceMatrix: number[][], pressureArray: number[], position: number) {
-  let pathsWithTimeLeft: Path[] = [
-    { positions: [position], releasedPressure: 0, yourTime: 30, pressures: [...pressureArray] }
-  ];
-  const pathsWithoutTime: Path[] = [];
-  while (pathsWithTimeLeft.length > 0) {
-    pathsWithTimeLeft = _.flatten(
-      pathsWithTimeLeft.map((path) => {
-        const { pressureRelease, remainingTimes } = getExpectedPresssureRelease(
-          distanceMatrix,
-          path.pressures,
-          _.last(path.positions) ?? -1,
-          path.yourTime
-        );
-        const placesToVisit = findPositiveValueIndices(pressureRelease);
-        if (placesToVisit.length === 0) {
-          pathsWithoutTime.push(_.cloneDeep(path));
-          return [] as Path[];
+export function maxPressureReleased(
+  distanceMatrix: number[][],
+  pressureArray: number[],
+  position: number,
+  pathNumberCutoff: number
+) {
+  let paths: Path[] = [{ positions: [position], releasedPressure: 0, yourTime: 30, pressures: [...pressureArray] }];
+  for (let time = 30; time > 0; time--) {
+    paths = _.flatten(
+      paths.map((path) => {
+        if (path.yourTime === time) {
+          const { pressureRelease, remainingTimes } = getExpectedPresssureRelease(
+            distanceMatrix,
+            path.pressures,
+            _.last(path.positions) ?? -1,
+            time
+          );
+          const placesToVisit = findPositiveValueIndices(pressureRelease);
+          if (placesToVisit.length > 0) {
+            return placesToVisit.map((index) => {
+              const updatedPressures = [...path.pressures];
+              updatedPressures[index] = 0;
+              return {
+                positions: [...path.positions, index],
+                releasedPressure: path.releasedPressure + pressureRelease[index],
+                yourTime: remainingTimes[index],
+                pressures: updatedPressures
+              } as Path;
+            });
+          }
         }
-        return placesToVisit.map((index) => {
-          const updatedPressures = [...path.pressures];
-          updatedPressures[index] = 0;
-          return {
-            positions: [...path.positions, index],
-            releasedPressure: path.releasedPressure + pressureRelease[index],
-            yourTime: remainingTimes[index],
-            pressures: updatedPressures
-          } as Path;
-        });
+        return path;
       })
     );
+    paths = paths.sort(pathSortDesc).slice(0, pathNumberCutoff);
   }
-  return pathsWithoutTime.sort((pathA, pathB) => pathB.releasedPressure - pathA.releasedPressure)[0];
+  return paths.sort(pathSortDesc)[0];
 }
 
 type PathWithHelp = Path & { positionsElefant: number[]; elefantTime: number };
 
-function pathSortDesc(pathA: PathWithHelp, pathB: PathWithHelp) {
+function pathSortDesc<T extends Path | PathWithHelp>(pathA: T, pathB: T) {
   return pathB.releasedPressure - pathA.releasedPressure;
 }
 
-export function maxPressureReleasedWithHelp(distanceMatrix: number[][], pressureArray: number[], position: number) {
+export function maxPressureReleasedWithHelp(
+  distanceMatrix: number[][],
+  pressureArray: number[],
+  position: number,
+  pathNumberCutoff: number
+) {
   let paths = [
     {
       positions: [position],
@@ -185,7 +194,7 @@ export function maxPressureReleasedWithHelp(distanceMatrix: number[][], pressure
         return newPaths.length === 0 ? [path] : newPaths;
       })
     );
-    paths = paths.sort(pathSortDesc).slice(0, 5_000);
+    paths = paths.sort(pathSortDesc).slice(0, pathNumberCutoff);
   }
   return paths.sort(pathSortDesc)[0];
 }
@@ -215,13 +224,14 @@ export default function solveDay16() {
   const namesList = getNamesList(valves).sort();
   const miniumDistancesMatrix = minimalDistances(getDistanceMatrix(valves, namesList));
   const initialPressureArray = getPressureArray(valves, namesList);
-  const { releasedPressure } = maxPressureReleased(miniumDistancesMatrix, initialPressureArray, 0);
+  const { releasedPressure } = maxPressureReleased(miniumDistancesMatrix, initialPressureArray, 0, 500);
   console.log(`You can release a max of ${releasedPressure} pressure`);
 
   const { releasedPressure: releasedWithHelp } = maxPressureReleasedWithHelp(
     miniumDistancesMatrix,
     initialPressureArray,
-    0
+    0,
+    5_000
   );
   console.log(`With help you release a max of ${releasedWithHelp} pressure`);
 }
