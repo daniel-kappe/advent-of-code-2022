@@ -14,6 +14,7 @@
 // import solveDay14 from './day14';
 // import solveDay15 from './day15';
 import solveDay16 from './day16';
+import solveDay17 from './day17';
 
 // console.log(`#### Day  1 ####`);
 // solveDay1();
@@ -60,5 +61,8 @@ import solveDay16 from './day16';
 // console.log(`\n#### Day 15 ####`);
 // solveDay15();
 
-console.log(`\n#### Day 16 ####`);
-solveDay16();
+// console.log(`\n#### Day 16 ####`);
+// solveDay16();
+
+console.log(`\n#### Day 17 ####`);
+solveDay17();
