@@ -13,8 +13,12 @@
 // import solveDay13 from './day13';
 // import solveDay14 from './day14';
 // import solveDay15 from './day15';
-import solveDay16 from './day16';
-import solveDay17 from './day17';
+// import solveDay16 from './day16';
+// import solveDay17 from './day17';
+// import solveDay18 from './day18';
+import solveDay19 from './day19';
+// import solveDay20 from './day20';
+// import solveDay21 from './day21';
 
 // console.log(`#### Day  1 ####`);
 // solveDay1();
@@ -64,5 +68,17 @@ import solveDay17 from './day17';
 // console.log(`\n#### Day 16 ####`);
 // solveDay16();
 
-console.log(`\n#### Day 17 ####`);
-solveDay17();
+// console.log(`\n#### Day 17 ####`);
+// solveDay17();
+
+// console.log(`\n#### Day 18 ####`);
+// solveDay18();
+
+console.log(`\n#### Day 19 ####`);
+solveDay19();
+
+// console.log(`\n#### Day 20 ####`);
+// solveDay20();
+
+// console.log(`\n#### Day 21 ####`);
+// solveDay21();

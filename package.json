@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node src/index.ts",
+    "testDay18": "ts-node src/day18/index.spec.ts",
     "prestart": "npm run build",
     "start": "node dist/index.js",
     "test": "jest",
@@ -12,11 +13,10 @@
     "format": "prettier --write \"**/*.{ts,json}\" && npm run eslint -- --fix"
   },
   "dependencies": {
-    "@stdlib/stdlib": "^0.0.96",
+    "decimal.js": "^10.4.3",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@stdlib/types": "^0.0.14",
     "@swc/jest": "^0.2.23",
     "@types/jest": "^29.2.3",
     "@types/lodash": "^4.14.191",
