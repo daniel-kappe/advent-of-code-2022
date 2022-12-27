@@ -20,7 +20,9 @@
 // import solveDay20 from './day20';
 // import solveDay21 from './day21';
 // import solveDay22 from './day22';
-import solveDay23 from './day23';
+// import solveDay23 from './day23';
+import { solveDay24 } from './day24';
+// import { solveDay25 } from './day25';
 
 // console.log(`#### Day  1 ####`);
 // solveDay1();
@@ -88,5 +90,11 @@ import solveDay23 from './day23';
 // console.log(`\n#### Day 22 ####`);
 // solveDay22();
 
-console.log(`\n#### Day 23 ####`);
-solveDay23();
+// console.log(`\n#### Day 23 ####`);
+// solveDay23();
+
+console.log(`\n#### Day 24 ####`);
+solveDay24();
+
+// console.log(`\n#### Day 25 ####`);
+// solveDay25();
